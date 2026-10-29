@@ -1,0 +1,133 @@
+{
+  "name": "claude-consumption-vscode",
+  "displayName": "Claude Consumption",
+  "description": "Animated cyberpunk pixel-art panel on the right of the editor: agents, tasks, tokens, costs and memory of your Claude Code sessions, read live from the transcripts.",
+  "version": "0.1.0",
+  "publisher": "aelmizeb",
+  "author": { "name": "Abdellatif El Mizeb" },
+  "license": "MIT",
+  "icon": "resources/icon.png",
+  "repository": { "type": "git", "url": "https://github.com/aelmizeb/claude-consumption-vscode.git" },
+  "engines": { "vscode": "^1.100.0" },
+  "categories": ["Visualization", "Other"],
+  "keywords": ["claude", "claude code", "tokens", "cost", "agents", "anthropic"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "secondarySidebar": [
+        {
+          "id": "claude-consumption",
+          "title": "Claude Consumption",
+          "icon": "resources/view-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "claude-sidebar-secondary": [
+        {
+          "type": "webview",
+          "id": "claudeConsumption.fleetInClaude",
+          "name": "Consumption",
+          "icon": "resources/view-icon.svg",
+          "contextualTitle": "Claude Consumption",
+          "when": "claudeConsumption.dock == claude"
+        }
+      ],
+      "claude-consumption": [
+        {
+          "type": "webview",
+          "id": "claudeConsumption.fleet",
+          "name": "Consumption",
+          "icon": "resources/view-icon.svg",
+          "contextualTitle": "Claude Consumption",
+          "when": "claudeConsumption.dock != claude"
+        }
+      ]
+    },
+    "commands": [
+      { "command": "claudeConsumption.open", "title": "Open Panel", "category": "Claude Consumption", "icon": "$(dashboard)" },
+      { "command": "claudeConsumption.refresh", "title": "Refresh", "category": "Claude Consumption", "icon": "$(refresh)" },
+      { "command": "claudeConsumption.rescanCosts", "title": "Rescan Week and Month Costs", "category": "Claude Consumption", "icon": "$(graph)" },
+      { "command": "claudeConsumption.installStatusLine", "title": "Install the Status Line Bridge (5h / 7d quota)", "category": "Claude Consumption" },
+      { "command": "claudeConsumption.showLog", "title": "Show Log", "category": "Claude Consumption" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "claudeConsumption.refresh", "when": "view == claudeConsumption.fleet || view == claudeConsumption.fleetInClaude", "group": "navigation@1" },
+        { "command": "claudeConsumption.rescanCosts", "when": "view == claudeConsumption.fleet || view == claudeConsumption.fleetInClaude", "group": "navigation@2" }
+      ]
+    },
+    "configuration": {
+      "title": "Claude Consumption",
+      "properties": {
+        "claudeConsumption.dock": {
+          "type": "string",
+          "enum": ["claude", "own"],
+          "enumDescriptions": [
+            "Below the Claude Code chat, in the secondary (right) side bar. Falls back to \"own\" when the Claude Code extension is not installed.",
+            "In its own \"Claude Consumption\" container of the secondary (right) side bar."
+          ],
+          "default": "claude",
+          "description": "Where the panel is placed."
+        },
+        "claudeConsumption.scope": {
+          "type": "string",
+          "enum": ["workspace", "all"],
+          "enumDescriptions": [
+            "The Claude Code sessions of the folders open in this window.",
+            "Every Claude Code session on this machine."
+          ],
+          "default": "workspace",
+          "description": "Which sessions the panel follows. The tower is the most recently active session."
+        },
+        "claudeConsumption.configDir": {
+          "type": "string",
+          "default": "",
+          "description": "Claude Code configuration directory. Empty: CLAUDE_CONFIG_DIR, otherwise ~/.claude."
+        },
+        "claudeConsumption.pollSeconds": {
+          "type": "number",
+          "default": 2,
+          "minimum": 1,
+          "description": "How often the transcripts are re-read, in seconds."
+        },
+        "claudeConsumption.idleAfterSeconds": {
+          "type": "number",
+          "default": 600,
+          "minimum": 30,
+          "description": "Without transcript activity for longer than this, the session is considered idle."
+        },
+        "claudeConsumption.contextWindow": {
+          "type": "number",
+          "default": 0,
+          "description": "Context window size, in tokens, for the CONTEXT bar. 0: inferred from the model (1M for the 5 family, 200k otherwise, 1M when the model in settings.json carries [1m]) or read from the status line bridge."
+        },
+        "claudeConsumption.compareWithDeepSeek": {
+          "type": "boolean",
+          "default": false,
+          "description": "Adds a HUD row with what the same tokens would have cost on DeepSeek's most expensive offer (deepseek-v4-pro at peak rates: $1.32 per 1M input tokens on a cache miss, $0.044 on a cache hit, $3.96 per 1M output tokens), for the session, the week and the month, plus the Claude / DeepSeek ratio."
+        },
+        "claudeConsumption.statusFile": {
+          "type": "string",
+          "default": "",
+          "description": "File written by the status line bridge (5h / 7d quota, context). Empty: <configDir>/claude-consumption/status.json."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node --test \"out/test/**/*.test.js\"",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/vscode": "^1.100.0",
+    "@vscode/vsce": "^3.6.0",
+    "typescript": "^5.6.0"
+  }
+}
