@@ -3,7 +3,7 @@
   "displayName": "Claude Consumption",
   "description": "Animated cyberpunk pixel-art panel on the right of the editor: agents, tasks, tokens, costs and memory of your Claude Code sessions, read live from the transcripts.",
   "version": "0.1.0",
-  "publisher": "aelmizeb",
+  "publisher": "abdellatifelmizeb",
   "author": { "name": "Abdellatif El Mizeb" },
   "license": "MIT",
   "icon": "resources/icon.png",
