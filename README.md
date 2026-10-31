@@ -1,10 +1,10 @@
 # Claude Consumption (VS Code)
 
-The animated cyberpunk pixel-art panel of the Claude Code mod cyber-fleet, as a VS Code extension: a neon city where every Claude Code sub-agent is a drone, the main conversation a tower with a beating heart, and a HUD showing tokens, context, costs and memory.
+Claude Consumption is a VS Code extension that visualizes Claude Code activity through an animated cyberpunk pixel-art dashboard: a neon city where every sub-agent is a drone, the main conversation is a tower with a beating heart, and a HUD shows tokens, context, costs and memory.
 
 ![The Claude Consumption panel: a HUD with agents, tokens, memory, context, costs and quota above a neon city where the central tower is the session and every drone a sub-agent](resources/screenshot.png)
 
-Where the cyber-fleet mod lives inside the Claude Code chat, this extension lives in VS Code: it reads the transcripts Claude Code writes to disk and sits on the right of the editor, in the secondary side bar, below the Claude Code chat or in its own container. It depends on no internal API, so it can be shared as is.
+The extension reads the session transcripts Claude Code writes to disk and sits on the right of the editor, in the secondary side bar, below the Claude Code chat or in its own container. It does not depend on an internal API.
 
 ## What it shows
 
@@ -22,7 +22,7 @@ The animation (stars, rotors, beams, the tower's heart, flickering windows) is c
 From a `.vsix` file (the one attached to a [release](https://github.com/aelmizeb/claude-consumption-vscode/releases), or the one `npm run package` produces):
 
 ```
-code --install-extension claude-consumption-vscode-0.1.0.vsix
+code --install-extension claude-consumption-vscode-0.1.1.vsix
 ```
 
 or, in VS Code, **Extensions → … → Install from VSIX…**.

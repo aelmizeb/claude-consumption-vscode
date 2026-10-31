@@ -1,7 +1,7 @@
 import { Figures, FleetLoop, FleetMemory, FleetStatus, MAIN, isOver, totalTokens } from './types'
 
 /**
- * The cyberpunk pixel-art scene of the cyber-fleet mod, ported as is: a neon city where every sub-agent
+ * The Claude Consumption cyberpunk pixel-art scene: a neon city where every sub-agent
  * is a drone, the main conversation a tower with a beating heart, and a HUD of figures. The animation is
  * carried by the SVG itself (SMIL): the panel only redraws when the state changes.
  */

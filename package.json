@@ -1,8 +1,8 @@
 {
   "name": "claude-consumption-vscode",
   "displayName": "Claude Consumption",
-  "description": "Animated cyberpunk pixel-art panel on the right of the editor: agents, tasks, tokens, costs and memory of your Claude Code sessions, read live from the transcripts.",
-  "version": "0.1.0",
+  "description": "Animated cyberpunk dashboard for Claude Code in VS Code: track agents, tasks, tokens, context, costs and memory from local session transcripts.",
+  "version": "0.1.1",
   "publisher": "abdellatifelmizeb",
   "author": { "name": "Abdellatif El Mizeb" },
   "license": "MIT",
